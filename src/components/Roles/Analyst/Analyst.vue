@@ -5,6 +5,7 @@
 
       <v-flex xs12>
 
+        <p>{{ name }}</p>
 
         <h1 class="text-xs-center">Дашборд аналитика</h1>
 
@@ -47,6 +48,12 @@
       currentTenders,
       archivedTenders,
       analystNav
+    },
+
+    computed: {
+      name () {
+        return this.$store.state.name
+      }
     }
 
   }
