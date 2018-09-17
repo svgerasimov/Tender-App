@@ -62,35 +62,35 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex';
 
   export default {
-data(){
- return {
-   selectedTender: '',
-   tenderInfo: false,
-   search: '',
-   headers: [
-     {
-       text: 'Название',
-       align: 'left',
-       sortable: false,
-       value: 'name'
-     },
-     { text: 'Площадка', value: 'area' },
-     { text: 'Дата добавления', value: 'uploadDate' },
-     { text: 'Дата окончания', value: 'expirationDate' },
-     { text: 'Цена', value: 'price' }
-   ]
- }
-},
-
-
+    data(){
+     return {
+       search: '',
+       headers: [
+         {
+           text: 'Название',
+           align: 'left',
+           sortable: false,
+           value: 'name'
+         },
+         { text: 'Площадка', value: 'area' },
+         { text: 'Дата добавления', value: 'uploadDate' },
+         { text: 'Дата окончания', value: 'expirationDate' },
+         { text: 'Цена', value: 'price' }
+       ]
+     }
+    },
     methods: {
-      showTender(tender){
+     /* showTender(tender){
         this.selectedTender = tender;
         this.tenderInfo = true;
         console.log(this.selectedTender)
-      }
+      }*/
+      ...mapActions([
+        'showTender'
+      ])
     },
 
     computed: {
