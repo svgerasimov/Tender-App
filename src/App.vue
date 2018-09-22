@@ -15,7 +15,10 @@
   export default {
     components: {
       appHeader: Header
+    },
+    created(){
+      this.$store.dispatch('initTenders')
     }
-
   }
+
 </script>

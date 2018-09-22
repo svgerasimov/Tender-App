@@ -16,7 +16,7 @@
 
       <v-data-table
         :headers="headers"
-        :items="displayCurrentTenders"
+        :items="getCurrentTenders"
         :search="search"
       >
         <template slot="items" slot-scope="props">
@@ -32,24 +32,25 @@
         </v-alert>
       </v-data-table>
     </v-card>
+    {{ getProcessedTenders }}
 
 
     <!-- MODAL WINDOW -->
 
-      <v-dialog v-model="tenderInfo" persistent max-width="290">
-        <!--    <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>-->
+      <v-dialog v-model="getTenderInfo" persistent max-width="290">
+    <!--    <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>-->
 
           <v-card class="p-2">
-            <v-card-title class="h5">{{ selectedTender.name }}</v-card-title>
+            <v-card-title class="h5">{{ getSelectedTender.name }}</v-card-title>
             <p class="ml-3">Дата начала приёма заявок: {{ displayUploadDate  }}</p>
             <p class="ml-3">Дата окончания приёма заявок: {{ displayExpirationDate  }}</p>
-            <p class="ml-3">Начальная цена: {{ selectedTender.price  }}</p>
-            <p class="ml-3">Ссылка на тендер: <a :href="selectedTender.link">{{ selectedTender.link }}</a> </p>
+            <p class="ml-3">Начальная цена: {{ getSelectedTender.price  }}</p>
+            <p class="ml-3">Ссылка на тендер: <a :href="getSelectedTender.link">{{ getSelectedTender.link }}</a> </p>
             <v-card-actions>
 
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" flat @click.native="tenderInfo = false">Неинтересно</v-btn>
-              <v-btn color="green darken-1" flat @click.native="tenderInfo = false">Интересно</v-btn>
+              <v-btn color="green darken-1" flat @click.native="getTenderInfo = false">Неинтересно</v-btn>
+              <v-btn color="green darken-1" flat @click.native="processTender(getSelectedTender)">Интересно</v-btn>
             </v-card-actions>
           </v-card>
 
@@ -63,6 +64,7 @@
 
 <script>
   import {mapActions} from 'vuex';
+  import {mapGetters} from 'vuex';
 
   export default {
     data(){
@@ -79,21 +81,16 @@
          { text: 'Дата добавления', value: 'uploadDate' },
          { text: 'Дата окончания', value: 'expirationDate' },
          { text: 'Цена', value: 'price' }
-       ]
+       ],
      }
     },
-    methods: {
-     /* showTender(tender){
-        this.selectedTender = tender;
-        this.tenderInfo = true;
-        console.log(this.selectedTender)
-      }*/
-      ...mapActions([
-        'showTender'
-      ])
-    },
-
     computed: {
+      ...mapGetters([
+        'getSelectedTender',
+        'getTenderInfo',
+        'getCurrentTenders',
+        'getProcessedTenders'
+      ]),
       displayUploadDate(){
         if(!!this.selectedTender){
           let date = this.selectedTender.uploadDate;
@@ -113,7 +110,6 @@
         }
 
       },
-
       displayExpirationDate(){
         if(!!this.selectedTender){
           let date = this.selectedTender.expirationDate;
@@ -131,13 +127,12 @@
           return date = mm + '/' + dd + '/' + yy;
         }
       },
-
-      displayCurrentTenders(){
-        return this.$store.getters.getCurrentTenders
-      }
-
+    },
+    methods: {
+      ...mapActions([
+        'showTender',
+        'processTender'
+      ])
     }
-
-
   }
 </script>
