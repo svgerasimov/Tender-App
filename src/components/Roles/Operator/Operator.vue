@@ -17,7 +17,7 @@
 
 <script>
   import buttons from './Buttons.vue'
-  import processedTenders from './ProcessedTenders.vue'
+  import processedTenders from './ProcessedTenders/ProcessedTenders.vue'
   import products from './Products.vue'
   import operatorNav from './OperatorNav.vue'
 
