@@ -87,15 +87,25 @@
     <!-- CHANGE PRODUCT WINDOW -->
     <replace-product @done="eventChild" :product="selectedProduct"></replace-product>
 
+    <!-- DIALOG WITH COMMON PRODUCTS -->
+    <common-products></common-products>
+
+    <!-- WINDOW WITH ADDING NEW PRODUCTS -->
+    <add-new-product></add-new-product>
+
   </v-container>
 </template>
 
 <script>
   import replaceProduct from './replaceProduct.vue'
+  import commonProducts from './CommonProducts.vue'
+  import addNewProduct from './AddNewProduct.vue'
 
   export default {
     components: {
-      replaceProduct
+      replaceProduct,
+      commonProducts,
+      addNewProduct
     },
     data () {
       return {

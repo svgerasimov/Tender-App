@@ -54,8 +54,7 @@ export default {
       this.$store.commit('TOGGLE_REPLACE_PRODUCT')
     },
     replaceProduct(){
-      this.product = this.newNameOfProduct
-      this.$emit('done', this.product)
+      this.$store.commit('TOGGLE_COMMON_PRODUCTS')
       this.$store.commit('TOGGLE_REPLACE_PRODUCT')
     }
   }
