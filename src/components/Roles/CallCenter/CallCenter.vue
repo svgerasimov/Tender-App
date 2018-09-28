@@ -1,52 +1,57 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs12>
-        <h1 class="text-xs-center">Дашборд оператора call-центра</h1>
+  <v-content>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
+          <h1 class="text-xs-center">Дашборд оператора call-центра</h1>
 
-        <ul v-for="tender in displayTenders">
-          <li>{{ tender }}</li>
-        </ul>
+          <ul v-for="tender in displayTenders">
+            <li>{{ tender }}</li>
+          </ul>
 
-     <!--   {{ displayTenders }}-->
+          <!--   {{ displayTenders }}-->
 
-        <v-card>
-          <v-card-title>
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Поиск"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="displayTenders"
-            :search="search"
-          >
-            <template slot="items" slot-scope="props">
-              <td>{{ props.item.name }}</td>
-              <td class="text-xs-right">
-                <span @click="openProvidersDialog(props.item)" v-for="product in props.item.products">{{ product }}</span>
-              </td>
-            </template>
-            <v-alert slot="no-results" :value="true" color="error" icon="warning">
-              Ваш запрос "{{ search }}" не дал результатов.
-            </v-alert>
-          </v-data-table>
-        </v-card>
+          <v-card>
+            <v-card-title>
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Поиск"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :headers="headers"
+              :items="displayTenders"
+              :search="search"
+            >
+              <template slot="items" slot-scope="props">
+                <td>{{ props.item.name }}</td>
+                <td class="text-xs-right">
+                  <span @click="openProvidersDialog(props.item)" v-for="product in props.item.products">{{ product }}</span>
+                </td>
+              </template>
+              <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                Ваш запрос "{{ search }}" не дал результатов.
+              </v-alert>
+            </v-data-table>
+          </v-card>
 
-      </v-flex>
-    </v-layout>
+        </v-flex>
+      </v-layout>
 
-    <!-- Добавить поставщика -->
-    <provider :tender="selectedTender"></provider>
-    <!-- Cоздать поставщика -->
-    <create-provider :tender="selectedTender"></create-provider>
+      <!-- Добавить поставщика -->
+      <provider :tender="selectedTender"></provider>
+      <!-- Cоздать поставщика -->
+      <create-provider :tender="selectedTender"></create-provider>
 
-  </v-container>
+    </v-container>
+  </v-content>
+
+
+
 </template>
 
 

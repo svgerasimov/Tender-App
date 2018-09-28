@@ -12,7 +12,6 @@
           @click=""
         >
 
-
           <v-list-tile-content>
             <v-list-tile-title v-text="link.title"></v-list-tile-title>
           </v-list-tile-content>
@@ -56,31 +55,13 @@
       return {
         drawer: false,
         links: [
-          /*{
+          {
             title: 'Вход',
             url: '/login'
-          },*/
-          {
-            title: 'Аналитик',
-            url: '/analyst'
           },
           {
-            title: 'Оператор',
-            url: '/operator'
-          },
-          {
-            title: 'Оператор Call-центра',
-            url: '/call-center-operator'
-          },
-          {
-            title: 'Менеджер',
-            icon: '',
-            url: '/manager'
-          },
-          {
-            title: 'Руководитель',
-            icon: '',
-            url: '/head'
+            title: 'Главная',
+            url: '/'
           }
         ]
       }

@@ -1,25 +1,26 @@
 <template>
-  <v-container>
+  <v-content>
+    <v-container>
 
-    <v-layout>
+      <v-layout>
 
-      <v-flex xs12>
+        <v-flex xs12>
 
-        <p>{{ name }}</p>
+          <p>{{ name }}</p>
 
-        <h1 class="text-xs-center">Дашборд аналитика</h1>
+          <h1 class="text-xs-center">Дашборд аналитика</h1>
 
-        <analyst-nav :tabs="tabs" @showComponent="selectedComponent = $event"></analyst-nav>
+          <analyst-nav :tabs="tabs" @showComponent="selectedComponent = $event"></analyst-nav>
 
-         <component :is="selectedComponent"></component>
+          <component :is="selectedComponent"></component>
 
 
-      </v-flex>
+        </v-flex>
 
-    </v-layout>
+      </v-layout>
 
-  </v-container>
-
+    </v-container>
+  </v-content>
 
 </template>
 
@@ -47,7 +48,7 @@
     components: {
       currentTenders,
       archivedTenders,
-      analystNav
+      analystNav,
     },
 
     computed: {

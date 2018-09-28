@@ -107,7 +107,7 @@
       ...mapGetters([
         'getSelectedTender',
         'getProcessedTenders',
-        'getOpenTendersDialog'
+        'getOpenTendersDialog',
       ]),
     },
 
@@ -132,6 +132,8 @@
 
         })
         .catch(error => console.log(error))
+  /*    this.$store.dispatch('fetchTenders')
+      this.tenders = this.$store.getters.tendersGet*/
     }
   }
 </script>

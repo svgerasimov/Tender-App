@@ -1,68 +1,69 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs12>
-        <h1>Дашборд менеджера</h1>
-        <ul v-for="tender in displayTenders">
-          <li>{{ tender }}</li>
-        </ul>
+  <v-content>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
+          <h1>Дашборд менеджера</h1>
+          <ul v-for="tender in displayTenders">
+            <li>{{ tender }}</li>
+          </ul>
 
-        {{ selectedProduct }}
+          {{ selectedProduct }}
 
-        <v-card>
-          <v-card-title>
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="search"
-              label="Поиск"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :headers="headers"
-            :items="displayTenders"
-            :search="search"
-          >
-            <template slot="items" slot-scope="props">
-              <td>
-                <v-flex xs12 sm6>
-                  <v-menu
-                    ref="menu"
-                    :close-on-content-click="false"
-                    v-model="props.item.menu"
-                    :nudge-right="40"
-                    :return-value.sync="props.item.expirationDate"
-                    lazy
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="330px"
-                  >
-                    <v-combobox
-                      slot="activator"
-                      v-model="props.item.expirationDate"
-                      multiple
-                      chips
-                      small-chips
-                      label="Дата окончания тендера"
-                      prepend-icon="event"
-                      readonly
-                    ></v-combobox>
-                    <v-date-picker v-model="props.item.expirationDate" multiple no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="props.item.menu = false">Закрыть</v-btn>
+          <v-card>
+            <v-card-title>
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Поиск"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :headers="headers"
+              :items="displayTenders"
+              :search="search"
+            >
+              <template slot="items" slot-scope="props">
+                <td>
+                  <v-flex xs12 sm6>
+                    <v-menu
+                      ref="menu"
+                      :close-on-content-click="false"
+                      v-model="props.item.menu"
+                      :nudge-right="40"
+                      :return-value.sync="props.item.expirationDate"
+                      lazy
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="330px"
+                    >
+                      <v-combobox
+                        slot="activator"
+                        v-model="props.item.expirationDate"
+                        multiple
+                        chips
+                        small-chips
+                        label="Дата окончания тендера"
+                        prepend-icon="event"
+                        readonly
+                      ></v-combobox>
+                      <v-date-picker v-model="props.item.expirationDate" multiple no-title scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="props.item.menu = false">Закрыть</v-btn>
 
-                    </v-date-picker>
-                  </v-menu>
-                </v-flex>
+                      </v-date-picker>
+                    </v-menu>
+                  </v-flex>
 
 
-              </td>
-             <td class="text-xs-center">{{ props.item.name }}</td>
-              <!--  -->
-              <td class="text-xs-center">
+                </td>
+                <td class="text-xs-center">{{ props.item.name }}</td>
+                <!--  -->
+                <td class="text-xs-center">
                 <span v-for="product in props.item.products">
                   {{ product }}
                     <v-btn @click="pickProduct(product)"  flat icon color="red">
@@ -70,30 +71,32 @@
                   </v-btn><br>
 
                 </span>
-              </td>
-              <td class="text-xs-center">
-                <a v-for="provider in props.item.providers">{{ provider.name }}</a>
-              </td>
+                </td>
+                <td class="text-xs-center">
+                  <a v-for="provider in props.item.providers">{{ provider.name }}</a>
+                </td>
 
-            </template>
-            <v-alert slot="no-results" :value="true" color="error" icon="warning">
-              По вашему запросу "{{ search }}" совпадений не нашлось.
-            </v-alert>
-          </v-data-table>
-        </v-card>
-      </v-flex>
-    </v-layout>
+              </template>
+              <v-alert slot="no-results" :value="true" color="error" icon="warning">
+                По вашему запросу "{{ search }}" совпадений не нашлось.
+              </v-alert>
+            </v-data-table>
+          </v-card>
+        </v-flex>
+      </v-layout>
 
-    <!-- CHANGE PRODUCT WINDOW -->
-    <replace-product @done="eventChild" :product="selectedProduct"></replace-product>
+      <!-- CHANGE PRODUCT WINDOW -->
+      <replace-product @done="eventChild" :product="selectedProduct"></replace-product>
 
-    <!-- DIALOG WITH COMMON PRODUCTS -->
-    <common-products></common-products>
+      <!-- DIALOG WITH COMMON PRODUCTS -->
+      <common-products></common-products>
 
-    <!-- WINDOW WITH ADDING NEW PRODUCTS -->
-    <add-new-product></add-new-product>
+      <!-- WINDOW WITH ADDING NEW PRODUCTS -->
+      <add-new-product></add-new-product>
 
-  </v-container>
+    </v-container>
+  </v-content>
+
 </template>
 
 <script>
@@ -101,11 +104,12 @@
   import commonProducts from './CommonProducts.vue'
   import addNewProduct from './AddNewProduct.vue'
 
+
   export default {
     components: {
       replaceProduct,
       commonProducts,
-      addNewProduct
+      addNewProduct,
     },
     data () {
       return {

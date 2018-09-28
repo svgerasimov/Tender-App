@@ -1,18 +1,21 @@
 <template>
-  <v-container>
-    <v-layout>
-      <v-flex xs12>
+  <v-content>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
 
-        <h1 class="text-xs-center">Дашборд Оператора</h1>
-        <buttons />
-        <operator-nav :tabs="tabs" @showComponent="selectedComponent = $event"></operator-nav>
-        <component :is="selectedComponent"></component>
+          <h1 class="text-xs-center">Дашборд Оператора</h1>
+          <buttons />
+          <operator-nav :tabs="tabs" @showComponent="selectedComponent = $event"></operator-nav>
+          <component :is="selectedComponent"></component>
 
 
 
-      </v-flex>
-    </v-layout>
-  </v-container>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
+
 </template>
 
 <script>
@@ -41,7 +44,7 @@
       buttons,
       processedTenders,
       products,
-      operatorNav
+      operatorNav,
     }
   }
 </script>

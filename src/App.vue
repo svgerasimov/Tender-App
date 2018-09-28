@@ -2,7 +2,13 @@
   <v-app>
 
     <v-content>
-      <app-header></app-header>
+      <template v-if="auth">
+        <app-header></app-header>
+      </template>
+      <template v-else>
+        <app-login-header></app-login-header>
+      </template>
+
       <router-view></router-view>
     </v-content>
 
@@ -10,13 +16,21 @@
 </template>
 
 <script>
+  import HeaderLogin from './components/HeaderLogin.vue'
   import Header from './components/Header.vue'
   import axios from 'axios'
 
   export default {
     components: {
-      appHeader: Header
+      appHeader: Header,
+      appLoginHeader: HeaderLogin
     },
+    computed: {
+      auth(){
+        return this.$store.getters.isAuthenticated
+      }
+    },
+
     data() {
       return {
 

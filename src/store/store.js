@@ -5,6 +5,7 @@ import analystTenders from './modules/analystTenders'
 import operatorTenders from './modules/operatorTenders'
 import callCenter from './modules/callCenter'
 import manager from './modules/managerTenders'
+import authStore from './auth_store'
 
 import * as actions from './actions'
 
@@ -16,6 +17,7 @@ export const store = new Vuex.Store({
     analystTenders,
     operatorTenders,
     callCenter,
-    manager
+    manager,
+    authStore
   }
 })
