@@ -17,14 +17,14 @@
 
         <v-data-table
           :headers="headers"
-          :items="displayArchivedTenders"
+          :items="archievedTenders"
           :search="search"
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-left">{{ props.item.name }}</td>
             <td class="text-xs-left">{{ props.item.area }}</td>
             <td class="text-xs-left">{{ props.item.uploadDate }}</td>
-            <td class="text-xs-left">{{ props.item.expirationDate }}</td>
+            <td class="text-xs-left">{{ props.item.expirationDate[0] }}</td>
             <td class="text-xs-left">{{ props.item.price }}</td>
           </template>
 
@@ -40,17 +40,14 @@
   </template>
 
   <script>
+    import {mapGetters} from 'vuex'
+    import axios from 'axios'
 
     export default {
-      data(){
+      data() {
         return {
-          selectedTender: '',
           tenderInfo: false,
-
-          //==================================
-          // Данные для таблицы - тендеры
-          //==================================
-
+          archievedTenders: [],
           search: '',
           headers: [
             {
@@ -59,40 +56,19 @@
               sortable: false,
               value: 'name'
             },
-            { text: 'Площадка', value: 'area' },
-            { text: 'Дата добавления', value: 'uploadDate' },
-            { text: 'Дата окончания', value: 'expirationDate' },
-            { text: 'Цена', value: 'price' }
+            {text: 'Площадка', value: 'area'},
+            {text: 'Дата добавления', value: 'uploadDate'},
+            {text: 'Дата окончания', value: 'expirationDate'},
+            {text: 'Цена', value: 'price'}
           ],
 
         }
       },
-      computed: {
-        displayUploadDate(){
-          if(!!this.selectedTender){
-            let date = this.selectedTender.uploadDate;
-            let dd = date.getDate();
-            let mm = date.getMonth()+1;
-            let yy = date.getFullYear();
-
-            if(dd < 10) {
-              dd = '0'+ dd
-            }
-
-            if(mm < 10) {
-              mm = '0'+ mm
-            }
-            return date = mm + '/' + dd + '/' + yy;
-
-          }
-
-        },
-        displayArchivedTenders(){
-          return this.$store.getters.getArchivedTenders
-        }
-
+      created(){
+        axios.get(`https://tenders-90270.firebaseio.com/tenders.json`)
+          .then(tenders => this.archievedTenders = tenders.data)
+          .catch(error => console.log(error))
       }
-
 
     }
   </script>

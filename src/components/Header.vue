@@ -60,10 +60,6 @@
             url: '/login'
           },
           {
-            title: 'Регистрация',
-            url: '/registration'
-          },
-          {
             title: 'Аналитик',
             url: '/analyst'
           },

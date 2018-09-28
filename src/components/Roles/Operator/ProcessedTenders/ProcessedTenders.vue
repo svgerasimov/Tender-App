@@ -15,13 +15,16 @@
         </span>
           </v-tooltip>
         </template>
+
         <template slot="items" slot-scope="props">
-          <td class="text-xs-right" @click = "selectTender(props.item)">{{ props.item.name }}</td>
+          <td class="text-xs-right" @click = "pickTender(props.item)">{{ props.item.name }}</td>
           <td class="text-xs-right">{{ props.item.area }}</td>
           <td class="text-xs-right">{{ props.item.uploadDate }}</td>
           <td class="text-xs-right">{{ props.item.expirationDate }}</td>
           <td class="text-xs-right">{{ props.item.price }}</td>
+
         </template>
+
 
       </v-data-table>
 
@@ -30,22 +33,24 @@
 
       <!-- WINDOW WITH ENTERED PRODUCTS -->
       <entered-products-window></entered-products-window>
+
+      <!-- WINDOW WITH ADD SYNONYMS -->
+      <add-synonyms></add-synonyms>
     </v-container>
 
 </template>
 
 <script>
-  import axios from 'axios'
   import {mapGetters} from 'vuex'
+  import {mapActions} from 'vuex'
 
   import SelectedTenderWindow from './SelectedTenderWindow.vue'
   import EnteredProductsWindow from './EnteredProductsWindow.vue'
+  import AddSynonyms from './AddSynonyms.vue'
 
   export default {
     data(){
       return {
-        selectedTender: {},
-        showTender: false,
         search: '',
         headers: [
           {
@@ -59,27 +64,34 @@
           { text: 'Дата окончания приёма заявок', value: 'expirationDate' },
           { text: 'Начальная цена', value: 'price' }
         ],
+        selectedTender: null
       }
     },
 
     computed: {
       ...mapGetters([
-        'getProcessedTenders'
+        'getProcessedTenders',
+        'getProducts'
       ])
     },
 
     methods: {
-      selectTender(tender){
-        this.selectedTender = {
-          tender,
-          showTender: true
+      ...mapActions([
+        'selectTender'
+        ]
+      ),
+
+      pickTender(tender){
+       // this.selectTender(tender)
+        this.selectedTender = tender
+        this.$store.commit('TOGGLE_SELECTED_TENDER_WINDOW')
         }
-      }
-    },
+      },
 
     components: {
       SelectedTenderWindow,
-      EnteredProductsWindow
+      EnteredProductsWindow,
+      AddSynonyms
     }
   }
 </script>

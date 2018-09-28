@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="getOpenProductsWindowProp" persistent max-width="500px">
+  <v-dialog v-model="getOpenEnteredProducts" persistent max-width="500px">
     <v-card>
       <v-card-title>
         <span class="headline">{{ }}</span>
@@ -7,16 +7,19 @@
       <v-card-text>
         <v-container grid-list-md>
           <v-layout wrap>
-            <v-flex xs12 sm12>
-              {{ getEnteredProducts }}
-            </v-flex>
+           <product-matches v-for="enteredProduct in getProcessedTenders"
+                             :enteredProduct="enteredProduct"
+                              >{{ enteredProduct }}
+            </product-matches>
           </v-layout>
+
+
         </v-container>
 
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click.native="getOpenProductsWindowProp = false">Готово</v-btn>
+        <v-btn color="blue darken-1" flat @click.native="closeWindow">Готово</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -25,15 +28,26 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import productMatches from './ProductsMatchesRow.vue'
 
   export default {
+
     computed: {
       ...mapGetters([
-        'getEnteredProducts',
-        'getOpenProductsWindowProp'
+        'getOpenEnteredProducts',
+        'getProcessedTenders'
         ]
       )
+    },
+    components: {
+      productMatches
+    },
+    methods: {
+      closeWindow(){
+        this.$store.commit('TOGGLE_ENTERED_PRODUCTS_WINDOW')
+      }
     }
+
 
   }
 </script>

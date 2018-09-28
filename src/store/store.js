@@ -3,12 +3,19 @@ import Vuex from 'vuex'
 
 import analystTenders from './modules/analystTenders'
 import operatorTenders from './modules/operatorTenders'
+import callCenter from './modules/callCenter'
+import manager from './modules/managerTenders'
+
+import * as actions from './actions'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
+  actions,
   modules: {
     analystTenders,
-    operatorTenders
+    operatorTenders,
+    callCenter,
+    manager
   }
 })

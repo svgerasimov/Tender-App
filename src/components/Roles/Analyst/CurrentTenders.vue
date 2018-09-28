@@ -16,7 +16,7 @@
 
       <v-data-table
         :headers="headers"
-        :items="getCurrentTenders"
+        :items="tenders"
         :search="search"
       >
         <template slot="items" slot-scope="props">
@@ -32,30 +32,45 @@
         </v-alert>
       </v-data-table>
     </v-card>
-    {{ getProcessedTenders }}
-
 
     <!-- MODAL WINDOW -->
 
-      <v-dialog v-model="getTenderInfo" persistent max-width="290">
-    <!--    <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>-->
+    <v-layout row justify-center>
+      <v-dialog v-model="getOpenTendersDialog" persistent max-width="600px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">{{ getSelectedTender.name }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
 
-          <v-card class="p-2">
-            <v-card-title class="h5">{{ getSelectedTender.name }}</v-card-title>
-            <p class="ml-3">Дата начала приёма заявок: {{ displayUploadDate  }}</p>
-            <p class="ml-3">Дата окончания приёма заявок: {{ displayExpirationDate  }}</p>
-            <p class="ml-3">Начальная цена: {{ getSelectedTender.price  }}</p>
-            <p class="ml-3">Ссылка на тендер: <a :href="getSelectedTender.link">{{ getSelectedTender.link }}</a> </p>
-            <v-card-actions>
+                <v-flex xs12>
+                  <p><span class="font-weight-bold">Дата начала приёма заявок:</span> {{getSelectedTender.uploadDate  }}</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p><span class="font-weight-bold">Дата окончания приёма заявок:</span> {{ getSelectedTender.expirationDate  }}</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p><span class="font-weight-bold">Начальная цена:</span> {{ getSelectedTender.price  }}</p>
+                </v-flex>
+                <v-flex xs12>
+                  <p><span class="font-weight-bold">Ссылка на тендер:</span> <a :href="getSelectedTender.link">{{ getSelectedTender.link }}</a></p>
+                </v-flex>
 
-              <v-spacer></v-spacer>
-              <v-btn color="green darken-1" flat @click.native="getTenderInfo = false">Неинтересно</v-btn>
-              <v-btn color="green darken-1" flat @click.native="processTender(getSelectedTender)">Интересно</v-btn>
-            </v-card-actions>
-          </v-card>
+              </v-layout>
+            </v-container>
 
-
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click.native="closeWindow">Неинтересно</v-btn>
+            <v-btn color="green darken-1" flat @click.native="processTender(getSelectedTender)">Интересно</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
+    </v-layout>
 
 
   </v-content>
@@ -65,6 +80,8 @@
 <script>
   import {mapActions} from 'vuex';
   import {mapGetters} from 'vuex';
+
+  import axios from 'axios'
 
   export default {
     data(){
@@ -82,57 +99,39 @@
          { text: 'Дата окончания', value: 'expirationDate' },
          { text: 'Цена', value: 'price' }
        ],
+       tenders: []
      }
     },
+
     computed: {
       ...mapGetters([
         'getSelectedTender',
-        'getTenderInfo',
-        'getCurrentTenders',
-        'getProcessedTenders'
+        'getProcessedTenders',
+        'getOpenTendersDialog'
       ]),
-      displayUploadDate(){
-        if(!!this.selectedTender){
-          let date = this.selectedTender.uploadDate;
-          let dd = date.getDate();
-          let mm = date.getMonth()+1;
-          let yy = date.getFullYear();
-
-          if(dd < 10) {
-            dd = '0'+ dd
-          }
-
-          if(mm < 10) {
-            mm = '0'+ mm
-          }
-          return date = mm + '/' + dd + '/' + yy;
-
-        }
-
-      },
-      displayExpirationDate(){
-        if(!!this.selectedTender){
-          let date = this.selectedTender.expirationDate;
-          let dd = date.getDate();
-          let mm = date.getMonth()+1;
-          let yy = date.getFullYear();
-
-          if(dd < 10) {
-            dd = '0'+ dd
-          }
-
-          if(mm < 10) {
-            mm = '0'+ mm
-          }
-          return date = mm + '/' + dd + '/' + yy;
-        }
-      },
     },
+
     methods: {
       ...mapActions([
         'showTender',
         'processTender'
-      ])
+      ]),
+      closeWindow(){
+        this.$store.commit('OPEN_CURRENT_TENDERS_WINDOW')
+      }
+    },
+
+    created() {
+      axios.get(`https://tenders-90270.firebaseio.com/tenders.json`)
+        .then(loadedTenders => {
+          this.tenders = loadedTenders.data
+          this.tenders.forEach(tender => {
+            tender['providers'] = []
+          })
+
+
+        })
+        .catch(error => console.log(error))
     }
   }
 </script>

@@ -1,0 +1,115 @@
+{
+	"tenders":[
+{
+	"id": 1,
+"value":false,
+"name":"Поставка ленточнопильного станка модели МСК-600 TF производства ГК Коско (Россия)",
+"area":"Единая Электронная Торговая Площадка (госзакупки)",
+"uploadDate":"2018-03-12",
+"expirationDate":"2018-10-02",
+"price":1271000,
+"link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806906810",
+"menu":false,
+},
+
+{
+"id": 2,
+	"value":false,
+"name":"Оказание услуг по проведению предрейсовых медицинских осмотров водителей транспортных средств Филиала ФБУЗ «Центр гигиены и эпидемиологии в Нижегородской области в Лукояновском, Большеболдинском, Гагинском, Починковском, Шатковском, Сергачском, Краснооктябрьском, Пильнинском, Сеченовском, Лысковском, Воротынском, Княгининском, Спасском районах»(Филиал ФБУЗ «Центр гигиены и эпидемиологии в Нижегородской области №6).",
+"area":"ЭТП РТС-тендер",
+"uploadDate":"2018-05-02","expirationDate":"2018-11-18",
+"price":11960,
+"link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806911239",
+"menu":false,
+},
+{
+"id": 3,
+	"value":false,
+"name":"Поставка ленточнопильного станка Opus 600 c проведением пуско-наладочных работ и инструктажа персонала.",
+"area":"ЭТП Группа Газпромбанка",
+"uploadDate":"2018-06-02",
+"expirationDate":"2018-12-08",
+"price":49356,
+"link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806853645",
+"menu":false,
+},
+{
+"id": 4,
+	"value":false,
+"name":"Поставка солода ячменного светлого пильзенского типа для пивоваренного цеха Краснодарского ТПО",
+"area":"Группа ЭТП OTC.RU",
+"uploadDate":"2018-09-11",
+"expirationDate":"2018-12-01",
+"price":1920096,
+"link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806880890",
+"menu":false, 
+},
+{
+"id": 5,
+	"value":false,
+"name":"Поставка рабочих станций (системный блок, монитор, клавиатура, мышь, источник бесперебойного питания) для нужд МБУЗ «Кореновская ЦРБ» на 2018 год",
+"area":"Сбербанк-АСТ",
+"uploadDate":"2018-09-22",
+"expirationDate":"2018-12-11",
+"price":888063,
+"link":"http://www.sberbank-ast.ru/purchaseview.aspx?id=6111172",
+"menu":false, 
+},
+{
+"id": 6,
+	"value":false,
+"name":"Поставка лекарственных препаратов (Вакцина для профилактики менингококковых инфекций) для нужд МБУЗ «Кореновская ЦРБ» в 2018 году",
+"area":"Сбербанк-АСТ",
+"uploadDate":"2018-10-02",
+"expirationDate":"2018-10-23",
+"price":90100,
+"link":"http://www.sberbank-ast.ru/purchaseview.aspx?id=6111144",
+"menu":false, 
+}],
+
+"products":[
+{
+	"id": 1,
+	"name": "Комбикорм полнорационный куриный"
+},
+
+{
+"id": 2,
+"name": "Комбикорм полнорационный для свиней"
+},
+{
+"id": 3,
+"name": "Мел кормовой для подкормки животных"
+}],
+
+"providers":[
+{
+	"id": 1,
+	"link": "https://postavshik1.ru",
+	"bind": "Рожки да ножки"
+},
+
+{
+"id": 2,
+"link": "https://postavshik2.ru",
+"bind": "''"
+},
+{
+"id": 3,
+"link": "https://postavshik3.ru",
+"bind": "ООО ПинКом"
+},
+{
+"id": 4,
+"link": "https://postavshik4.ru",
+"bind": "''"
+}
+
+]
+
+}
+
+
+
+
+

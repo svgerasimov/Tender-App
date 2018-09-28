@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 import Home from '@/components/Home'
 import Analyst from '@/components/Roles/Analyst/Analyst'
-import CallCenter from '@/components/Roles/CallCenter'
+import CallCenter from '@/components/Roles/CallCenter/CallCenter'
 import Head from '@/components/Roles/Head'
-import Manager from '@/components/Roles/Manager'
+import Manager from '@/components/Roles/Manager/Manager'
 import Operator from '@/components/Roles/Operator/Operator'
 import Login from '@/components/Auth/Login'
 import Registration from '@/components/Auth/Registration'
@@ -48,11 +48,6 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/registration',
-      name: 'Registration',
-      component: Registration
     }
   ],
   mode: 'history'

@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="products"
+      :items="displayTenders"
       :search="search"
       :pagination.sync="pagination"
       hide-actions
@@ -12,6 +12,7 @@
         <v-tooltip bottom>
           <span slot="activator">
             {{ props.header.text }}
+
           </span>
           <span>
             {{ props.header.text }}
@@ -19,11 +20,11 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-left">{{ props.item.synonyms }}</td>
-        <td class="text-xs-left">{{ props.item.uploadDate }}</td>
-        <td class="text-xs-left">{{ props.item.status }}</td>
+        <td>
+         <span class="product" v-for="product in props.item.products ">{{ product}}</span>
+        </td>
       </template>
+
     </v-data-table>
     <div class="text-xs-center pt-2">
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
@@ -48,45 +49,6 @@
           { text: 'Синонимы', value: 'synonyms' },
           { text: 'Дата добавления товара', value: 'uploadDate' },
           { text: 'Статус', value: 'status' }
-        ],
-        products: [
-          {
-            value: false,
-            name: 'Товар 1',
-            synonyms: 'Товар 45, Товар 56',
-            uploadDate: new Date(2018, 24, 8),
-            expirationDate: new Date(2018, 28, 9),
-            status: 'Не проверено'
-          },{
-            value: false,
-            name: 'Товар 2',
-            synonyms: 'Товар 45, Товар 56',
-            uploadDate: new Date(2018, 24, 8),
-            expirationDate: new Date(2018, 28, 9),
-            status: 'Отклонено'
-          },{
-            value: false,
-            name: 'Товар 3',
-            synonyms: 'Товар 45, Товар 56',
-            uploadDate: new Date(2018, 24, 8),
-            expirationDate: new Date(2018, 28, 9),
-            status: 'Не проверено'
-          },{
-            value: false,
-            name: 'Товар 4',
-            synonyms: 'Товар 45, Товар 56',
-            uploadDate: new Date(2018, 24, 8),
-            expirationDate: new Date(2018, 28, 9),
-            status: 'Отклонено'
-          },{
-            value: false,
-            name: 'Товар 1',
-            synonyms: 'Товар 45, Товар 56',
-            uploadDate: new Date(2018, 24, 8),
-            expirationDate: new Date(2018, 28, 9),
-            status: 'Не проверено'
-          },
-
         ]
       }
     },
@@ -97,7 +59,26 @@
         ) return 0
 
         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+      },
+      displayTenders (){
+      return this.$store.getters.getProcessedTenders
+      },
+      displayProducts (){
+       return this.displayTenders
       }
+
+
     }
   }
 </script>
+
+<style scoped>
+  .product {
+    margin-right: 10px;
+    font-size: 14px
+  }
+
+  .product:hover{
+    cursor: pointer
+  }
+</style>

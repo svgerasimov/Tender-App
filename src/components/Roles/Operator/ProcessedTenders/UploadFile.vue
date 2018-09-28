@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h4>Прикрепить файлы: </h4>
+  <v-flex xs12>
     <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
       <img :src="fileUrl" height="100" v-if="fileUrl"/>
       <v-text-field label="Прикрепить файл" @click='pickFile' v-model='fileName' prepend-icon='attach_file'></v-text-field>
@@ -20,7 +19,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-flex>
 </template>
 
 <script>
