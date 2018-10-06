@@ -4,12 +4,10 @@
       <v-layout>
         <v-flex xs12>
           <h1 class="text-xs-center">Дашборд оператора call-центра</h1>
-
-          <ul v-for="tender in displayTenders">
-            <li>{{ tender }}</li>
-          </ul>
-
-          <!--   {{ displayTenders }}-->
+          <pre>
+              {{ displayTenders }}
+          </pre>
+     
 
           <v-card>
             <v-card-title>
@@ -28,10 +26,12 @@
               :search="search"
             >
               <template slot="items" slot-scope="props">
-                <td>{{ props.item.name }}</td>
-                <td class="text-xs-right">
-                  <span @click="openProvidersDialog(props.item)" v-for="product in props.item.products">{{ product }}</span>
-                </td>
+                <td @click="openProvidersDialog(props.item)">{{ props.item.name }}</td>
+               <!--  <td class="text-xs-right">
+                 <span @click="openProvidersDialog(props.item)" v-for="product in props.item.products">{{ product }}</span> 
+                 <span @click="openProvidersDialog(props.item)" v-for="product in props.item.products">{{ product }}</span> 
+          
+                </td> -->
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
                 Ваш запрос "{{ search }}" не дал результатов.
@@ -50,10 +50,7 @@
     </v-container>
   </v-content>
 
-
-
 </template>
-
 
 
 <script>
@@ -65,15 +62,15 @@
       return {
         search: '',
         headers: [
-          { text: 'Название'},
-          { text: 'Товары'},
+          { text: 'Название'}
+
         ],
         selectedTender: null
       }
     },
     computed: {
       displayTenders(){
-        return this.$store.getters.getTenders
+        return this.$store.getters.getTendersCC
       }
     },
     components: {
@@ -86,10 +83,11 @@
         this.$store.commit('TOGGLE_PROV_WINDOW')
       }
     },
-
-
+    created(){
+      this.$store.dispatch('fetchSelectedTenders')
+    }
   }
-</script>-->
+</script>
 
 
 

@@ -10,17 +10,55 @@
 "price":1271000,
 "link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806906810",
 "menu":false,
+"providers": {
+	"0": {
+		"name": "vekpro.ru‎",
+		"link": "http://www.vekpro.ru/Ленточнопильные/по_Металлу"
+	},
+	"1": {
+		"name": "Pilous",
+		"link": "http://pilous.wrs.ru/"
+	},
+	"2": {
+		"name": "Ассоциация «КАМИ» - производство и реализация деревообрабатывающих станков и промышленного оборудования",
+		"link": "https://www.stanki.ru/catalog/vertikalnye_lentochnopilnye_stanki/"
+		},
+		"3": {
+		"name": "TKSTACK",
+		"link": "https://tkstack.ru/zheleznodorozhnye-perevozki"
+	}
+	}
+	
 },
 
 {
 "id": 2,
-	"value":false,
+"value":false,
 "name":"Оказание услуг по проведению предрейсовых медицинских осмотров водителей транспортных средств Филиала ФБУЗ «Центр гигиены и эпидемиологии в Нижегородской области в Лукояновском, Большеболдинском, Гагинском, Починковском, Шатковском, Сергачском, Краснооктябрьском, Пильнинском, Сеченовском, Лысковском, Воротынском, Княгининском, Спасском районах»(Филиал ФБУЗ «Центр гигиены и эпидемиологии в Нижегородской области №6).",
 "area":"ЭТП РТС-тендер",
 "uploadDate":"2018-05-02","expirationDate":"2018-11-18",
 "price":11960,
 "link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806911239",
 "menu":false,
+"providers": {
+	"0": {
+		"name": "Медицинский центр \"Медика\"",
+		"link": "https://www.medika-vrn.ru/srv/meditsinskiy-osmotr/"
+	},
+	"1": {
+		"name": "«Воронежское областное бюро судебно-медицинской экспертизы», сокращенное  - БУЗ  ВО «Воронежское областное бюро СМЭ»",
+		"link": "http://sudmed-vrn.kvmail.ru/"
+	},
+	"2": {
+		"name": "ООО Медисон",
+		"link": "http://predreisovii-medosmotr.ru/kontakty.html"
+	},
+	"3": {
+		"name": "Платная медицинская скорая помощь 072",
+		"link": "http://072vrn.ru/"
+	}
+
+}
 },
 {
 "id": 3,
@@ -32,6 +70,25 @@
 "price":49356,
 "link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806853645",
 "menu":false,
+"providers": {
+	"0": {
+		"name": "ВЕКПРОМ",
+		"link": "https://www.vekpro.ru/catalog/rezka-metalla/lentochnopilnie-stanki/beka-mak/"
+	},
+	"1": {
+		"name": "TKSTACK",
+		"link": "https://tkstack.ru/zheleznodorozhnye-perevozki"
+	},
+	"2": {
+		"name": "Pilous",
+		"link": "http://pilous.wrs.ru/"
+	},
+	"3": {
+		"name": "СТЕРБРУСТ",
+		"link": "https://sterbrust.com/catalog/vertikalnye-lentochnopilnye-stanki-opus/lentochnopilnyy-stanok-vertikalnyy-opus-600-tf-cast/"
+	}
+
+}
 },
 {
 "id": 4,
@@ -42,7 +99,26 @@
 "expirationDate":"2018-12-01",
 "price":1920096,
 "link":"http://zakupki.gov.ru/223/purchase/public/purchase/info/common-info.html?regNumber=31806880890",
-"menu":false, 
+"menu":false,
+"providers": {
+	"0": {
+		"name": "ГРЕЙНРУС",
+		"link": "https://malt.ru/catalog/solod/"
+	},
+	"1": {
+		"name": "Варим Крафт",
+		"link": "https://varimcraft.ru/catalog/solod/yachmennyy-solod"
+	},
+	"2": {
+		"name": "Народные традиции",
+		"link": "https://ntradition.ru/goods/Solod-yachmennyj-quot-Svetlyj-quot-Belorussiya-4-kg-molotyj"
+	},
+	"3": {
+		"name": "Градус Хаус",
+		"link": "https://gradushaus.ru/ingredienty-dlya-piva/solod-yachmennyj"
+	}
+
+} 
 },
 {
 "id": 5,
@@ -53,62 +129,30 @@
 "expirationDate":"2018-12-11",
 "price":888063,
 "link":"http://www.sberbank-ast.ru/purchaseview.aspx?id=6111172",
-"menu":false, 
-},
-{
-"id": 6,
-	"value":false,
-"name":"Поставка лекарственных препаратов (Вакцина для профилактики менингококковых инфекций) для нужд МБУЗ «Кореновская ЦРБ» в 2018 году",
-"area":"Сбербанк-АСТ",
-"uploadDate":"2018-10-02",
-"expirationDate":"2018-10-23",
-"price":90100,
-"link":"http://www.sberbank-ast.ru/purchaseview.aspx?id=6111144",
-"menu":false, 
-}],
+"menu":false,
+"providers": {
+	"0": {
+		"name": "XCom",
+		"link": "http://www.xcom.ru/products/uninterrupted_power_supply/ups_calculator_for_office/"
+	},
+	"1": {
+		"name": "PRICE",
+		"link": "https://price.ru/search/?query=купить%20бесперебойник&vitrina=1"
+	},
+	"2": {
+		"name": "E-katalog",
+		"link": "http://www.e-katalog.ru/ek-list.php?katalog"
+	},
+	"3": {
+		"name": "СитиЛинк",
+		"link": "https://www.citilink.ru/"
+	}
 
-"products":[
-{
-	"id": 1,
-	"name": "Комбикорм полнорационный куриный"
-},
-
-{
-"id": 2,
-"name": "Комбикорм полнорационный для свиней"
-},
-{
-"id": 3,
-"name": "Мел кормовой для подкормки животных"
-}],
-
-"providers":[
-{
-	"id": 1,
-	"link": "https://postavshik1.ru",
-	"bind": "Рожки да ножки"
-},
-
-{
-"id": 2,
-"link": "https://postavshik2.ru",
-"bind": "''"
-},
-{
-"id": 3,
-"link": "https://postavshik3.ru",
-"bind": "ООО ПинКом"
-},
-{
-"id": 4,
-"link": "https://postavshik4.ru",
-"bind": "''"
+} 
 }
-
 ]
 
 }
-
 
 
 

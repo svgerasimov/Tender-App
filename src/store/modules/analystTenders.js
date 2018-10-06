@@ -2,7 +2,8 @@
 const state = {
   selectedTender: '',
   openTendersDialog: false, // open CurrentTenders Dialog window
-  processedTenders: []
+  processedTenders: [],
+  selectedTenders: []
 }
 
 const mutations = {
@@ -10,13 +11,15 @@ const mutations = {
     state.openTendersDialog = !state.openTendersDialog
   },
 
-  'SHOW_TENDER' (state, selectedTender) {
-    state.selectedTender = selectedTender
-    state.openTendersDialog = true
-  },
-  'PROCESS_TENDER' (state, selectedTender) {
-    state.processedTenders.push(selectedTender)
+  'SELECT_TENDER' (state, tender) {
+    state.selectedTenders.push(tender)
     state.openTendersDialog = false
+    
+  },
+  'PROCESS_TENDER' (state, tender) {
+    state.selectedTender = tender
+    state.processedTenders.push(tender)
+    state.openTendersDialog = true
   }
 }
 
@@ -25,12 +28,13 @@ const actions = {
   setProducts: ({commit}, products) => {
     commit('SET_ENTERED_PRODUCTS', products)
   },
-  showTender: ({commit}, payload) => {
-    commit('SHOW_TENDER', payload)
+  selectTender: ({commit}, tender) => {
+    commit('SELECT_TENDER', tender)
   },
-  processTender: ({commit}, payload) => {
-    commit('PROCESS_TENDER', payload)
+  processTender: ({commit}, tender) => {
+    commit('PROCESS_TENDER', tender)
   }
+
 }
 
 const getters = {
@@ -38,11 +42,11 @@ const getters = {
   getSelectedTender: state => {
     return state.selectedTender
   },
-  getTenderInfo: state => {
-    return state.tenderInfo
-  },
   getProcessedTenders: state => {
     return state.processedTenders
+  },
+  getSelectedTenders: state => {
+    return state.selectedTenders
   },
   getOpenTendersDialog: state => {
     return state.openTendersDialog

@@ -34,8 +34,7 @@
       <!-- WINDOW WITH ENTERED PRODUCTS -->
       <entered-products-window></entered-products-window>
 
-      <!-- WINDOW WITH ADD SYNONYMS -->
-      <add-synonyms></add-synonyms>
+
     </v-container>
 
 </template>
@@ -45,8 +44,6 @@
   import {mapActions} from 'vuex'
 
   import SelectedTenderWindow from './SelectedTenderWindow.vue'
-  import EnteredProductsWindow from './EnteredProductsWindow.vue'
-  import AddSynonyms from './AddSynonyms.vue'
 
   export default {
     data(){
@@ -90,8 +87,6 @@
 
     components: {
       SelectedTenderWindow,
-      EnteredProductsWindow,
-      AddSynonyms
     }
   }
 </script>

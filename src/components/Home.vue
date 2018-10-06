@@ -15,13 +15,6 @@
 
 </template>
 
-<script>
-
-  export default {
-
-  }
-</script>
-
 <style>
   body {
     overflow-y: hidden;

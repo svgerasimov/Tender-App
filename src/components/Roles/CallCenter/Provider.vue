@@ -1,13 +1,14 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="showProvidersDialog" persistent max-width="800px">
+    <v-dialog v-model="showProvidersDialog" persistent max-width="1200px">
       <v-card>
         <v-card-title>
           <span class="headline text-xs-center">
-            Поставщики для товаров
-            <template v-for="product in tender.products">
-              {{ product }}
-            </template>
+         
+            Список потенциальных поставщиков для тендера
+    
+             <p v-bind:style="{fontStyle: italic}">{{ tender.name }}</p> 
+           
           </span>
           <v-spacer></v-spacer>
           <v-btn @click="openCreateProviderWindow" outline color="indigo">Добавить своего поставщика</v-btn>
@@ -15,14 +16,33 @@
 
         <v-data-table
           :headers="headers"
-          :items="showProviders"
+          :items="tender.providers"
           hide-actions
           class="elevation-1"
         >
           <template slot="items" slot-scope="props">
+            <td>
+              <div>{{ props.item.name }}</div>
+              <v-btn style="margin-left: 0" small color="error">Ссылка невалидна</v-btn>
+            </td>
             <td><a :href="props.item.link">{{ props.item.link }}</a></td>
-            <td class="text-xs-center">{{ props.item.bind.length < 3 ? 'Нет' : props.item.bind }}</td>
-            <template v-if="props.item.bind.length < 3">
+            <td>
+              <div style="margin-bottom: 10px; white-space: nowrap" v-for="(product, index) in tender.products">
+              
+                <span :class="{'strikethrough': (ind.indexOf(index) > -1)}">{{ product.name }}</span>
+                <v-btn @click="approveSupplier(props.item, product, index)" flat icon color="green">
+                  <v-icon>thumb_up</v-icon>
+                </v-btn>
+
+              </div>
+            </td>
+            <td>
+              <div class="text-xs-center">
+                <v-btn @click="addProviderToAllProducts(props.item)" round color="primary" dark>Да для всех</v-btn>
+              </div>
+            </td>
+  
+            <!-- <template v-if="props.item.bind.length < 3">
               <td class="text-xs-center">
                 <div>
                   <v-btn @click="openCreateProviderWindow" :disabled="true" small color="primary">Создать поставщика</v-btn>
@@ -42,7 +62,7 @@
                   <v-icon>Нет</v-icon>
                 </v-btn>
               </td>
-            </template>
+            </template> -->
           </template>
 
         </v-data-table>
@@ -60,23 +80,18 @@
   import axios from 'axios'
 
  export default {
-   created() {
-     axios.get(`https://tenders-90270.firebaseio.com/providers.json`)
-       .then(loadedProviders => {
-         const providers = loadedProviders.data
-         this.$store.commit('INIT_PROVIDERS',providers)
-       })
-   },
-
+ 
    data(){
      return {
        headers: [
-
-         { text: 'Ссылка на поставщика', value: 'calories' },
-         { text: 'Привязка к компании', value: 'fat' },
-         { text: 'Действия', value: 'carbs' }
-
+         { text: 'Наименование компании', value: '' },
+         { text: 'Ссылка на поставщика', value: '' },
+         { text: 'Товары', value: '' },
+       
        ],
+       ind: []
+
+
      }
    },
    props: ['tender'],
@@ -86,13 +101,41 @@
      },
      closeProvisers(){
        this.$store.commit('TOGGLE_PROV_WINDOW')
-     }
+     },
+
+
+    approveSupplier(provider, product, index) {
+      this.ind.push(index)
+      const bindedProviderAndProduct = {
+        provider,
+        product
+      }
+      this.$store.commit('ADD_PROVIDER_TO_PRODUCT', bindedProviderAndProduct)
+    },
+
+    addProviderToAllProducts(provider) {
+      const providerData = {
+        provider,
+        tender: this.tender
+      }
+      this.$store.commit('ADD_PROVIDER_TO_ALL_PRODUCTS', providerData)
+      this.$store.commit('TOGGLE_PROV_WINDOW')
+
+    }
+
    },
    computed: {
      ...mapGetters([
        'showProvidersDialog',
-       'showProviders'
      ]),
    },
  }
 </script>
+
+
+<style scoped>
+  .strikethrough {
+    text-decoration: line-through;
+  }
+</style>
+

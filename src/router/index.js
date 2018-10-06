@@ -9,6 +9,7 @@ import Manager from '@/components/Roles/Manager/Manager'
 import Operator from '@/components/Roles/Operator/Operator'
 import Login from '@/components/Auth/Login'
 import Registration from '@/components/Auth/Registration'
+import store from '../store/auth_store'
 
 Vue.use(Router)
 
@@ -17,32 +18,43 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,  
     },
     {
       path: '/analyst',
       name: 'Analyst',
-      component: Analyst
+      component: Analyst,
+   beforeEnter (to, from, next) {
+        if (store.state.idToken) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     },
     {
       path: '/call-center-operator',
       name: 'CallCenter',
-      component: CallCenter
+      component: CallCenter,
+
     },
     {
       path: '/manager',
       name: 'Manager',
-      component: Manager
+      component: Manager,
+ 
     },
     {
       path: '/operator',
       name: 'Operator',
-      component: Operator
+      component: Operator,
+  
     },
     {
       path: '/head',
       name: 'Head',
-      component: Head
+      component: Head,
+
     },
     {
       path: '/login',

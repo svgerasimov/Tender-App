@@ -5,20 +5,33 @@
       temporary
       v-model="drawer"
     >
-      <v-list>
+    <template v-if="auth">
+        <v-list>
         <v-list-tile
-          v-for="link in links"
+          v-for="link in authLinks"
           :key="link.title"
-          @click=""
         >
-
 
           <v-list-tile-content>
             <v-list-tile-title v-text="link.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+    </template>
+    <template v-else>
+      <v-list>
+        <v-list-tile
+          v-for="link in notAuthLinks"
+          :key="link.title"
+        >
 
+          <v-list-tile-content>
+            <v-list-tile-title v-text="link.title"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </template>
+    
 
     </v-navigation-drawer>
 
@@ -36,13 +49,27 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
+        
+
+        <template v-if="auth">
         <v-btn
-          v-for="link in links"
+          v-for="link in authLinks"
           :key="link.title"
           :to="link.url"
           flat
         >{{ link.title }}
         </v-btn>
+    </template>
+    <template v-else>
+      <v-btn
+          v-for="link in notAuthLinks"
+          :key="link.title"
+          :to="link.url"
+          flat
+        >{{ link.title }}
+        </v-btn>
+    </template>
+
       </v-toolbar-items>
 
     </v-toolbar>
@@ -52,10 +79,11 @@
 
 <script>
   export default {
+  
     data () {
       return {
         drawer: false,
-        links: [
+        authLinks: [
           /*{
             title: 'Вход',
             url: '/login'
@@ -82,7 +110,23 @@
             icon: '',
             url: '/head'
           }
-        ]
+        ],
+         notAuthLinks: [
+          {
+            title: 'Вход',
+            url: '/login'
+          },
+          {
+            title: 'Главная',
+            url: '/'
+          }
+        ],
+      }
+    },
+
+    computed: {
+      auth(){
+        return this.$store.getters.isAuthenticated
       }
     }
   }

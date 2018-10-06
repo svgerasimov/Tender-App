@@ -14,6 +14,7 @@
             hide-details
           ></v-text-field>
         </v-card-title>
+        
 
         <v-data-table
           :headers="headers"
@@ -40,14 +41,11 @@
   </template>
 
   <script>
-    import {mapGetters} from 'vuex'
     import axios from 'axios'
 
     export default {
       data() {
         return {
-          tenderInfo: false,
-          archievedTenders: [],
           search: '',
           headers: [
             {
@@ -61,13 +59,16 @@
             {text: 'Дата окончания', value: 'expirationDate'},
             {text: 'Цена', value: 'price'}
           ],
-
         }
       },
+      
+      computed: {
+      archievedTenders() {
+        return this.$store.getters.fetchTenders
+      }
+    },
       created(){
-        axios.get(`https://tenders-90270.firebaseio.com/tenders.json`)
-          .then(tenders => this.archievedTenders = tenders.data)
-          .catch(error => console.log(error))
+        this.$store.dispatch('fetchTenders')
       }
 
     }

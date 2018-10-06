@@ -36,7 +36,7 @@
 
         </v-card-text>
         <v-card-actions>
-
+          
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="closeSelectedTenderWindow">Закрыть</v-btn>
           <v-btn color="blue darken-1" flat @click.native="addProductsToTender">Проверить</v-btn>
@@ -58,7 +58,7 @@
     props: ['selectedTender'],
     data(){
       return {
-        products: [],
+        products: null,
       }
     },
     methods: {
@@ -68,14 +68,20 @@
       }),
 
       closeSelectedTenderWindow(){
-        this.products = []
+        this.products = null
         this.$store.commit('TOGGLE_SELECTED_TENDER_WINDOW')
       },
       findCommonProducts(){
         this.findIntersectedProducts(this.products, this.selectedTender)
       },
       addProductsToTender(){
-        this.selectedTender['products'] = this.products
+      //  this.selectedTender['products'] = this.products
+        this.selectedTender.products = this.products.map(product => {
+          return {
+            name: product,
+            providers: []
+          }
+        })
         this.$store.commit('TOGGLE_ENTERED_PRODUCTS_WINDOW')
 
       }

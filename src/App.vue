@@ -2,12 +2,7 @@
   <v-app>
 
     <v-content>
-      <template v-if="auth">
-        <app-header></app-header>
-      </template>
-      <template v-else>
-        <app-login-header></app-login-header>
-      </template>
+      <app-header></app-header>
 
       <router-view></router-view>
     </v-content>
@@ -22,8 +17,7 @@
 
   export default {
     components: {
-      appHeader: Header,
-      appLoginHeader: HeaderLogin
+      appHeader: Header
     },
     computed: {
       auth(){
@@ -31,18 +25,15 @@
       }
     },
 
-    data() {
-      return {
-
-      }
-    },
     created() {
-      axios.get(`https://tenders-90270.firebaseio.com/products.json`)
+      this.$store.dispatch('tryAutoLogin')
+
+     /*  axios.get(`https://tenders-90270.firebaseio.com/products.json`)
         .then(loadedProducts => {
           const products = loadedProducts.data
           this.$store.commit('SET_PRODUCTS',products)
         }),
-        this.$store.dispatch('getProcessedTendersFromAnalystTenders');
+        this.$store.dispatch('getProcessedTendersFromAnalystTenders'); */
 
 
     }

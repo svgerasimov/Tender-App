@@ -21,7 +21,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <td>
-         <span class="product" v-for="product in props.item.products ">{{ product}}</span>
+         <div class="product" style="margin-bottom: 10px" v-for="product in props.item.products ">{{ product.name}}</div>
         </td>
       </template>
 
@@ -61,6 +61,7 @@
         return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
       },
       displayTenders (){
+      
       return this.$store.getters.getProcessedTenders
       },
       displayProducts (){

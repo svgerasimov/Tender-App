@@ -18,6 +18,6 @@ export const store = new Vuex.Store({
     operatorTenders,
     callCenter,
     manager,
-    authStore
+    authStore,
   }
 })

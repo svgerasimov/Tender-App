@@ -1,6 +1,6 @@
 <template>
 
-  <v-content>
+  <v-content v-if="fetchTenders">
     <v-card style="margin-top: 40px;">
       <v-card-title>
         <h3>Тендеры</h3>
@@ -13,19 +13,25 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-
+      <pre>
+         {{ getProcessedTenders }}
+      </pre>
+             {{ getSelectedTenders }}
+         
       <v-data-table
         :headers="headers"
-        :items="tenders"
+        :items="fetchTenders"
         :search="search"
       >
         <template slot="items" slot-scope="props">
-          <td class="text-xs-left" @click="showTender(props.item)" >{{ props.item.name }}</td>
+          <td class="text-xs-left" @click="processTender(props.item)" >{{ props.item.name }}</td>
           <td class="text-xs-left">{{ props.item.area }}</td>
           <td class="text-xs-left">{{ props.item.uploadDate }}</td>
           <td class="text-xs-left">{{ props.item.expirationDate }}</td>
           <td class="text-xs-left">{{ props.item.price }}</td>
+
         </template>
+    
 
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Такой тендер не найден
@@ -66,7 +72,7 @@
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" flat @click.native="closeWindow">Неинтересно</v-btn>
-            <v-btn color="green darken-1" flat @click.native="processTender(getSelectedTender)">Интересно</v-btn>
+            <v-btn color="green darken-1" flat @click.native="selectTender(getSelectedTender)">Интересно</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -98,8 +104,7 @@
          { text: 'Дата добавления', value: 'uploadDate' },
          { text: 'Дата окончания', value: 'expirationDate' },
          { text: 'Цена', value: 'price' }
-       ],
-       tenders: []
+       ]
      }
     },
 
@@ -107,14 +112,19 @@
       ...mapGetters([
         'getSelectedTender',
         'getProcessedTenders',
+        'getSelectedTenders',
         'getOpenTendersDialog',
-      ]),
+        'fetchTenders'
+     
+      ])
+   
+    
     },
 
     methods: {
       ...mapActions([
-        'showTender',
-        'processTender'
+        'processTender',
+        'selectTender'
       ]),
       closeWindow(){
         this.$store.commit('OPEN_CURRENT_TENDERS_WINDOW')
@@ -122,18 +132,7 @@
     },
 
     created() {
-      axios.get(`https://tenders-90270.firebaseio.com/tenders.json`)
-        .then(loadedTenders => {
-          this.tenders = loadedTenders.data
-          this.tenders.forEach(tender => {
-            tender['providers'] = []
-          })
-
-
-        })
-        .catch(error => console.log(error))
-  /*    this.$store.dispatch('fetchTenders')
-      this.tenders = this.$store.getters.tendersGet*/
+      this.$store.dispatch('fetchTenders')
     }
   }
 </script>

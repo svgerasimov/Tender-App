@@ -1,12 +1,16 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="showCreateProv" persistent max-width="500px">
+    <v-dialog v-model="showCreateProv" max-width="500px">
       <v-card>
         <v-card-title>
           <span class="headline">Создать поставщика</span>
+          <pre>
+            {{ tender }}
+          </pre>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
+
 
             <form xs12>
               <v-text-field
@@ -38,6 +42,57 @@
                 label="Знание о тендере"
 
               ></v-select>
+
+
+                <v-select
+    v-model="selectedProducts"
+    :items="productsOfTender"
+    label="Товары для тендера"
+    multiple
+  >
+    <v-list-tile
+      slot="prepend-item"
+      ripple
+      @click="toggle"
+    >
+     
+      <v-list-tile-title>Выбрать все</v-list-tile-title>
+    </v-list-tile>
+    <v-divider
+      slot="prepend-item"
+      class="mt-2"
+    ></v-divider>
+    <v-divider
+      slot="append-item"
+      class="mb-2"
+    ></v-divider>
+    <v-list-tile
+      slot="append-item"
+      disabled
+    >
+      
+
+      <v-list-tile-content v-if="takesAllProducts">
+        <v-list-tile-title>Вы выбрали все товары</v-list-tile-title>
+      </v-list-tile-content>
+
+      <v-list-tile-content v-else-if="takesSomeProducts">
+        <v-list-tile-title>Выбрано товаров</v-list-tile-title>
+        <v-list-tile-sub-title>{{ selectedProducts.length }}</v-list-tile-sub-title>
+      </v-list-tile-content>
+
+      <v-list-tile-content v-else>
+        <v-list-tile-title>
+          Выберете какие именно товары  будет поставлять данный поставщик
+        </v-list-tile-title>
+
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-select>
+
+              
+
+
               <v-switch
                 :label="`Участвует в тендере`"
                 v-model="isParticipated"
@@ -71,7 +126,8 @@
                 label="Объем"
 
               ></v-text-field>
-                {{ tender }}
+
+        
               <v-btn block color="primary" dark @click.native.prevent="saveNewProv">Сохранить</v-btn>
             </form>
 
@@ -103,6 +159,7 @@
 
     data(){
       return {
+      selectedProducts: [],
         isParticipated: true,
         isBooked: false,
         publicName: '',
@@ -142,6 +199,20 @@
         return errors
       },
 
+      productsOfTender (){
+        return this.tender.products.map(product => {
+          return product.name
+        })
+      },
+
+      takesAllProducts () {
+        return this.selectedProducts.length === this.productsOfTender.length
+      },
+      takesSomeProducts () {
+        return this.selectedProducts.length > 0 && !this.takesAllProducts
+      }
+  
+
 
     },
     methods: {
@@ -155,10 +226,18 @@
           selectRole: this.selectRole,
           weight: this.weightOfTender,
           price: this.priceOfTender,
-          volume: this.volumeOfTender
+          volume: this.volumeOfTender,
          }
 
-        this.tender.providers.push(newProvider)
+   
+         this.tender.products.forEach(product => {
+           if(this.selectedProducts.includes(product.name)) {
+            product.providers.push(newProvider)
+           }
+         })
+
+
+
         this.$v.$reset()
         this.publicName = ''
         this.tel = ''
@@ -170,8 +249,21 @@
         this.priceOfTender = ''
         this.volumeOfTender = ''
        this.$store.commit('TOGGLE_CREATE_PROV_WINDOW')
+      },
+
+      toggle () {
+        this.$nextTick(() => {
+          if (this.takesAllProducts) {
+            this.selectedProducts = []
+          } else {
+            this.selectedProducts = this.productsOfTender.slice()
+          }
+        })
       }
-    },
+    }
+
+
+    
 
 
   }

@@ -35,6 +35,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
+              
                     <v-btn
                       color="primary"
                       @click="onSubmit"
@@ -61,8 +62,8 @@
     name: 'Login',
     data () {
       return {
-          email: ' ',
-        password: ' ',
+          email: '',
+        password: '',
         valid: false,
         emailRules: [
           v => !!v || 'Введите Ваш E-mail',
@@ -74,28 +75,34 @@
         ]
       }
     },
+        computed: {
+      isAuth(){
+        return this.$store.getters.isAuthenticated
+      }
+    },
     methods: {
       onSubmit (e) {
-
+         e.preventDefault()
         if (this.$refs.form.validate()) {
           const user = {
             email: this.email,
             password: this.password
           }
           console.log(user)
-          this.$store.dispatch('login', {email: user.email, password: user.password})
-        }
-        if(this.isAuth) {
-          this.$router.push('/')
-        }
-        e.preventDefault()
+          this.$store.dispatch('login', {email: user.email, password: user.password}).then( res=> {
+    
+            if (res.data.idToken) {
+              this.$router.push('/')
+            }
+            console.log(res)
+          })
+
+          
+
+        } 
       }
     },
-    computed: {
-      isAuth(){
-        return this.$store.getters.isAuthenticated
-      }
-    }
+
 
   }
 </script>

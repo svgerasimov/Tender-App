@@ -4,11 +4,16 @@
       <v-layout>
         <v-flex xs12>
           <h1>Дашборд менеджера</h1>
-          <ul v-for="tender in displayTenders">
-            <li>{{ tender }}</li>
-          </ul>
+      
+  
+          <pre>
+            {{ displayTenders }}
+          </pre>
 
-          {{ selectedProduct }}
+            <pre>
+              {{ selectedProduct }}
+            </pre>
+                    
 
           <v-card>
             <v-card-title>
@@ -62,19 +67,44 @@
 
                 </td>
                 <td class="text-xs-center">{{ props.item.name }}</td>
-                <!--  -->
                 <td class="text-xs-center">
-                <span v-for="product in props.item.products">
-                  {{ product }}
-                    <v-btn @click="pickProduct(product)"  flat icon color="red">
-                    <v-icon>edit</v-icon>
-                  </v-btn><br>
+        
+                  <tr v-for="product in props.item.products">
+                    <v-layout row align-center>
+                          <v-flex xs6>
+                      <span>{{ product.name }}</span>
+                      <v-btn @click="pickProduct(product)"  flat icon color="red">
+                        <v-icon>edit</v-icon>
+                      </v-btn>
+                    </v-flex>
+                    <v-flex xs6>
 
-                </span>
+                      <template v-if="product.providers.length <= 1">
+                        <span>{{ product.providers[0].name }}</span>
+                      </template>
+
+                      <template v-else>
+                        <v-select
+                        v-model="select"
+                        :items="product.providers"
+                        item-text="name"
+                        label="Поставщики"
+                        persistent-hint
+                        return-object
+                        single-line
+
+                      ></v-select>
+                      </template>
+
+                    </v-flex>
+                    </v-layout>
+                    
+                    
+            
+
+                  </tr>
                 </td>
-                <td class="text-xs-center">
-                  <a v-for="provider in props.item.providers">{{ provider.name }}</a>
-                </td>
+        
 
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -85,32 +115,26 @@
         </v-flex>
       </v-layout>
 
-      <!-- CHANGE PRODUCT WINDOW -->
-      <replace-product @done="eventChild" :product="selectedProduct"></replace-product>
 
-      <!-- DIALOG WITH COMMON PRODUCTS -->
-      <common-products></common-products>
 
-      <!-- WINDOW WITH ADDING NEW PRODUCTS -->
-      <add-new-product></add-new-product>
 
     </v-container>
+    
+    <!-- REPLACE PRODUCT DIALOG -->
+      <replace-product></replace-product>
   </v-content>
 
 </template>
 
 <script>
-  import replaceProduct from './replaceProduct.vue'
-  import commonProducts from './CommonProducts.vue'
-  import addNewProduct from './AddNewProduct.vue'
+import replaceProduct from './ReplaceProduct.vue'
 
 
   export default {
     components: {
-      replaceProduct,
-      commonProducts,
-      addNewProduct,
+      replaceProduct
     },
+  
     data () {
       return {
         search: '',
@@ -122,30 +146,32 @@
             value: 'name'
           },
           { text: 'Тендеры', value: 'calories' },
-          { text: 'Товары', value: 'fat' },
-          { text: 'Поставщики', value: 'carbs' }
+          { text: 'Товары и поставщики', value: 'fat' },
+       
         ],
-        selectedProduct: null
+        selectedProduct: null,
       }
     },
 
     computed: {
       displayTenders(){
-        return this.$store.getters.getTenders
-      }
+        return this.$store.getters.getTendersM
+      },
+     
+     
     },
     methods: {
       pickProduct(product){
         this.selectedProduct = product
         this.$store.commit('TOGGLE_REPLACE_PRODUCT')
-      },
-      eventChild(value){
-
       }
+     
 
     },
 
     created() {
+      this.$store.dispatch('getProcessedTendersFromAnalystTenders')
+    
       const output = []
       let chunk = []
       let chunk2 = []
@@ -170,4 +196,5 @@
     margin-bottom: 10px;
 
   }
+  
 </style>
